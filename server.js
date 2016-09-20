@@ -25,7 +25,10 @@ app.use(express.static(__dirname + '/dist'));
 
 io.on('connection', (socket) => {
   console.log('user signed on');
-  socket.on('disconnect', () => {
+  socket.on('message', function(msg) {
+    io.emit('message', msg);
+  })
+  socket.on('disconnect', function() {
     console.log('user disconnected')
   });
 });
